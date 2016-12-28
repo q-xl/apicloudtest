@@ -1,0 +1,25 @@
+body {
+  font-size: 18px;
+  font-family: "Microsoft YaHei";
+  background: #fefefe;
+  color: #333;
+}
+.show_content {
+  width: 90%;
+  margin: 0 auto 5rem auto;
+}
+.show_content .show_title {
+  font-weight: bolder;
+  font-size: 2rem;
+  color: #000;
+}
+.show_content .show_text p {
+  font-size: 1rem;
+  text-indent: 2rem;
+  line-height: 2rem;
+  text-align: justify;
+}
+.show_content .show_text p strong {
+  font-size: 1.3rem;
+  color: #666;
+}
