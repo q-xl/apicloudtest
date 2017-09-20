@@ -1,24 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>index</title>
-	<meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="format-detection" content="email=no"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
-    <link rel="stylesheet" type="text/css" href="css/comm.css">
+	<title>raceRanking</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script type="text/javascript" src="zepto_v1.2.js"></script>
+	<script type="text/javascript" src="zepto_deferred.js"></script>
+	<script type="text/javascript" src="zepto_callbacks.js"></script>
+	<script type="text/javascript" src="sha1.js"></script>
+	<script type="text/javascript" src="wechatApi.js"></script>
+	<script type="text/javascript" src="Vue.js"></script>
 </head>
 <body>
-    <header>home</header>
-    <section>
-    	<p>Hello!</p>
-    	<p>Welcome to the apicloudtest!</p>
-    	<p>You can go and watch something interesting.</p>
-    	<a href="html/css_icon.html">css_icon</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="html/show_script.html">show_script</a>
-    </section>
+
+	<div class="wrap" id="app">
+		<div class="rule" v-show="showPopup" @click="hideRule">
+			<p>The rules.</p>
+			<p>Click to close.</p>
+		</div>
+		<div class="rankingboard">
+			<div class="rankingChange">
+				<a class="active" href="javascript:void(0);" @click="getRankingList(1,$event)">gold</a><a href="javascript:void(0);" @click="getRankingList(2,$event)">silver</a><a href="javascript:void(0);" @click="getRankingList(3,$event)">bronze</a>
+			</div>
+			<ul class="rankingList">
+				<template v-if="!isEmpty">
+					<li v-for="value in rankingData" :key="value._id">
+						<div>{{value.rnk}}</div>
+						<div>
+							<h4>{{value.ename}}</h4>
+							<span>{{value.embl}}</span>
+						</div>
+						<div>
+							<p><b>{{value.score}}</b>分</p>
+							<p>{{value.millis}}</p>
+						</div>
+					</li>
+				</template>
+				<template v-else>
+					<li>no records.</li>
+				</template>
+			</ul>
+		</div>
+		<div class="ruleControl">
+			<input type="checkbox" name="" v-model="hasRead" /><a href="javascript:void(0);" @click="showRule">show the rule</a>
+		</div>
+	  	<button class="submit" @click="goNext">submit</button>
+	</div>
+
 </body>
+<script type="text/javascript">
+	
+	var raceData = {
+			rankingData : [],
+			isEmpty : true,
+			hasRead : false,
+			showPopup : false
+		},
+		app = new Vue({
+			el: '#app',
+			data: raceData,
+			methods: {
+			    goNext: function(){
+			    	console.log(raceData.hasRead);
+			    },
+			    showRule: function(){
+					raceData.showPopup = true;
+			    },
+			    hideRule: function(){
+					raceData.showPopup = false;
+			    },
+			    getRankingList: function(rankingType,e){
+			    	
+			    	var event = e;
+
+			    	$.ajax({
+						type : 'POST',
+						crossDomain:true,
+						contentType : 'application/json',
+						url : "http://youplus.yg-link.com/zhzgh-svr/rkexam/rank.json",
+						data : JSON.stringify({openid : sessionStorage.getItem("wxopenid"),lvl : rankingType}),
+						dataType : 'json',
+						async : true,
+						cache : false,
+						timeout : 5000,
+						success : function(data) {
+							// console.log("go!",data);
+							if(event){
+								$(".rankingChange > a").removeClass("active");
+								$(event.target).addClass("active");
+							}
+							if(data.body.length != 0){
+								raceData.rankingData = data.body;
+								raceData.isEmpty = false;
+							}else{
+								raceData.rankingData = [];
+								raceData.isEmpty = true;
+							}
+						},
+						error : function(e) {
+							console.log("fail!");
+						}
+					});
+
+			    }
+			}
+		});
+
+	function loadData(){
+		
+		$(".wrap").height($(window).height());
+		$(".rankingboard").height($(".wrap").height()*0.85);
+		$(".rankingList").height($(".rankingboard").height()-$(".rankingChange").height()-90);
+
+		app.getRankingList(1);
+
+	}
+	
+</script>
 </html>
