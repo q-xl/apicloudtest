@@ -1,0 +1,149 @@
+body{
+	background: #1A80FE;
+	font-family: "Microsoft YaHei";
+	margin: 0;
+	font-size: 14px;
+}
+
+.wrap{
+	width: 100%;
+	padding: 0;
+}
+
+.rule{
+	position: fixed;
+	z-index: 2;
+	top: 10%;
+	left: 10%;
+	width: 80%;
+	height: 80%;
+	background-color: #fff;
+	opacity: 0.9;
+	border: 1px solid #ccc;
+}
+.rule p{
+	color: #111;
+	text-indent: 2em;
+}
+
+.rankingboard{
+	width: 94%;
+	margin: 0 auto;
+	background-image: url('bg_phb.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	text-align: center;
+	overflow-y: hidden;
+}
+
+.rankingChange{
+	width: 80%;
+	height: 32px;
+	background-color: #1a80fe;
+	border: 1px solid #1a80fe;
+	margin: 60px auto 0 auto;
+	padding: 0;
+}
+.rankingChange > a{
+	display: inline-block;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 33.3%;
+	height: 100%;
+	line-height: 32px;
+	text-align: center;
+	color: #fff;
+	background-color: #1a80fe;
+}
+.rankingChange > a.active{
+	color: #1a80fe;
+	background-color: #fff;	
+}
+
+.rankingList{
+	width: 80%;
+	margin: 0 auto;
+	padding: 0;
+	overflow-y: scroll;
+}
+.rankingList li{
+	list-style: none;
+	width: 99%;
+	border: 1px solid #e7e7e7;
+	background-color: #fff;
+	margin: 14px 0;
+	padding: 7px 0;
+}
+.rankingList li div{
+	display: inline-block;
+	vertical-align: top;
+}
+.rankingList li div:first-child{
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	border-radius: 50%;
+	color: #fff;
+	background-color: #1980ff;
+	text-align: center;
+	margin: 5px 0 0 0;
+}
+.rankingList li div:nth-child(2){
+	width: 33%;
+	text-align: left;
+	font-size: 12px;
+	color: #333;
+}
+.rankingList li div:nth-child(2) h4{
+	color: #111;
+	margin: 5px 0 5px 0;
+	font-size: 16px;
+}
+.rankingList li div:last-child{
+	width: 45%;
+	text-align: right;
+}
+.rankingList li div:last-child p{
+	margin: 0;
+}
+.rankingList li div:last-child p:last-child{
+	font-size: 12px;
+	color: #111;
+}
+.rankingList li div:last-child p b{
+	font-size: 24px;
+	font-weight: normal;
+}
+.rankingList li:first-child div:first-child,.rankingList li:nth-child(2) div:first-child,.rankingList li:nth-child(3) div:first-child{
+	background-color: #f39800;
+}
+.rankingList li:first-child div:last-child p b,.rankingList li:nth-child(2) div:last-child p b,.rankingList li:nth-child(3) div:last-child p b{
+	color: #f30017;
+}
+
+.ruleControl{
+	width: 85%;
+	margin: 0 auto 10px auto;
+}
+.ruleControl input[type="checkbox"]{
+	vertical-align: middle;
+}
+.ruleControl a{
+	color: #fff;
+	vertical-align: middle;
+}
+
+.submit{
+	display: block;
+	width: 85%;
+	height: 42px;
+	line-height: 42px;
+	margin: 0 auto;
+	border-radius: 5px;
+	background-image: linear-gradient(to top,#f8e121,#fe8e20);
+	text-align: center;
+	font-weight: bold;
+	color: #111;
+	font-size: 16px;
+	border: none;
+}
